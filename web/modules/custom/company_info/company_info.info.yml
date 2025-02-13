@@ -1,0 +1,5 @@
+name: 'Company Info'
+type: module
+description: 'Allows administrators to manage company information through a configuration form and display it on a public page.'
+package: Custom
+core_version_requirement: ^10

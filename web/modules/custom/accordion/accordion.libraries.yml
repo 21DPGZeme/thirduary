@@ -1,0 +1,10 @@
+accordion_library:
+  css:
+    component:
+      css/accordion.css: {}
+  js:
+    js/accordion.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

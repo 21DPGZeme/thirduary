@@ -1,0 +1,142 @@
+/* ===================== */
+/* GLOBAL                */
+/* ===================== */
+
+:root {
+  --animation-length: 0ms;
+}
+
+button.accordion-button {
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.accordion-icon {
+  transition: transform var(--animation-length) cubic-bezier(0.5, 0, 0.1, 1);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button[aria-expanded="false"] .accordion-icon {
+  transform: rotate(-90deg);
+}
+
+/* ===================== */
+/* LIGHT STYLE (Default) */
+/* ===================== */
+.accordion.accordion--light {
+    border: 1px solid #e2e5e8;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  .accordion.accordion--light h3.accordion-title {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e2e5e8;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .accordion.accordion--light .accordion-body {
+    transition: max-height var(--animation-length) ease;
+    overflow: hidden;
+    max-height: 0;
+    padding: 0 5px;
+    background-color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+    scroll-margin-top: 8em;
+  }
+  
+  /* ===================== */
+  /* DARK STYLE            */
+  /* ===================== */
+  .accordion.accordion--dark {
+    border: 1px solid #e2e5e8;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  .accordion.accordion--dark h3.accordion-title {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    background-color: #333;
+    border-bottom: 1px solid #444;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .accordion.accordion--dark .accordion-body {
+    transition: max-height var(--animation-length) ease;
+    overflow: hidden;
+    max-height: 0;
+    padding: 0 5px;
+    background-color: #292929;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #ddd;
+    scroll-margin-top: 8em;
+  }
+  
+  /* ===================== */
+  /* VINTAGE STYLE         */
+  /* ===================== */
+  .accordion.accordion--vintage h3.accordion-title {
+    margin: 0;
+    padding: 5px 5px 0;
+    max-width: 100%;
+    background-color: lightgrey;
+  }
+  
+  .accordion.accordion--vintage button.accordion-button {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+    box-shadow: none;
+    cursor: pointer;
+  }
+  
+  .accordion.accordion--vintage .accordion-body {
+    transition: max-height var(--animation-length) ease;
+    overflow: hidden;
+    max-height: 0;
+    padding: 0 5px;
+    scroll-margin-top: 8em;
+  }
+  

@@ -1,0 +1,5 @@
+accordion.form:
+  title: 'Accordion settings'
+  description: 'Configure accordion paragraph settings.'
+  route_name: accordion.form
+  parent: 'system.admin_config_content'

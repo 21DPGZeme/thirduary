@@ -1,0 +1,15 @@
+company_info.form:
+  path: '/admin/config/system/company-info'
+  defaults:
+    _form: '\Drupal\company_info\Form\CompanyInfoForm'
+    _title: 'Company Info settings'
+  requirements:
+    _permission: 'administer company information'
+
+
+company_info.display:
+  path: '/company-info'
+  defaults:
+    _controller: 'Drupal\company_info\Controller\CompanyInfoController::displayInfo'
+  requirements:
+    _permission: 'access company information'

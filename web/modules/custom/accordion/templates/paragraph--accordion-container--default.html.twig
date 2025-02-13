@@ -1,0 +1,29 @@
+<div{{ attributes.addClass('accordion') }}>
+  {% block paragraph %}
+    {% block content %}
+      {% for key, value in paragraph.field_accordion_item.value %}
+        <div class="accordion-item">
+          <h3 class="accordion-title">
+            <button id="accordion-header-{{ paragraph.id() }}-{{ key }}"
+                    class="accordion-button"
+                    aria-expanded="{{ paragraph.field_accordion_item[key].entity.field_initially_open.value == '1' ? 'true' : 'false' }}"
+                    aria-controls="accordion-panel-{{ paragraph.id() }}-{{ key }}"
+                    data-initially-open="{{ paragraph.field_accordion_item[key].entity.field_initially_open.value == '1' ? 'true' : 'false' }}">
+              {{ paragraph.field_accordion_item[key].entity.field_title.value|raw }}
+              <i focusable="false" aria-hidden="true" class="accordion-icon">
+                <svg enable-background="new 0 0 16 8" viewBox="0 0 16 8" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m16 0h-3.9l-4.1 4.1-4.1-4.1h-3.9l8 8z"/>
+                </svg>
+              </i>
+            </button>
+          </h3>
+          <div id="accordion-panel-{{ paragraph.id() }}-{{ key }}"
+               class="accordion-body"
+               aria-labelledby="accordion-header-{{ paragraph.id() }}-{{ key }}">
+            {{ paragraph.field_accordion_item[key].entity.field_content.value|raw }}
+          </div>
+        </div>
+      {% endfor %}
+    {% endblock %}
+  {% endblock paragraph %}
+</div>

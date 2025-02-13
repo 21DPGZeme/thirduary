@@ -1,0 +1,11 @@
+company_info.form:
+  title: 'Company info settings'
+  description: 'Configure company info settings.'
+  route_name: company_info.form
+  parent: 'system.admin_config_system'
+
+company_info.display:
+  title: 'Company info'
+  description: 'View company info.'
+  route_name: company_info.display
+  menu_name: main

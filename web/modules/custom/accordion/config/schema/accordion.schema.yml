@@ -1,0 +1,13 @@
+accordion.settings:
+  type: config_object
+  label: 'Accordion settings'
+  mapping:
+    policy_library:
+      type: mapping
+      mapping:
+        # machine_name:
+        #   type: machine_name
+        #   label: 'Accordion paragraph machine name'
+        animation_length:
+          type: integer
+          label: 'Accordion animation length (ms)'

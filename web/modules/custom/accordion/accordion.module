@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function accordion_preprocess_paragraph(&$variables) {
+  $config = \Drupal::config('accordion.settings');
+  $style = $config->get('accordion.style') ?: 'light';
+  $paragraph = $variables['elements']['#paragraph'];
+  if ($paragraph->getType() === 'accordion_container') {
+    if ($paragraph->hasField('field_accordion_item') && !$paragraph->get('field_accordion_item')->isEmpty()) {
+      $variables['#attached']['library'][] = 'accordion/accordion_library';
+      
+      $variables['attributes']['class'][] = 'accordion--' . $style;
+      
+      $variables['#attached']['drupalSettings']['accordion']['length'] = $config->get('accordion.animation_length') ?: 0;
+      $variables['#cache']['tags'][] = 'config:accordion.settings';
+    }
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function accordion_theme() {
+  return [
+    'paragraph__accordion_container__default' => [
+      'template' => 'paragraph--accordion-container--default',
+      'base hook' => 'paragraph',
+    ]
+  ];
+}

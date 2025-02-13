@@ -1,0 +1,7 @@
+accordion.form:
+  path: '/admin/config/content/accordion'
+  defaults:
+    _form: '\Drupal\accordion\Form\AccordionForm'
+    _title: 'Accordion settings'
+  requirements:
+    _permission: 'administer paragraph settings'

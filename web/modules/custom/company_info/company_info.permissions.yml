@@ -1,0 +1,6 @@
+administer company information:
+  title: 'Administer company information'
+  description: 'Access system configuration form to change company information.'
+access company information:
+  title: 'Access company information'
+  description: 'Access page to view company information.'

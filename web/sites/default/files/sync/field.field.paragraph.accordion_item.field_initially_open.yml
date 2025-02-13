@@ -1,0 +1,23 @@
+uuid: 22559759-428f-47f2-8b99-2b9c7c682f2d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_initially_open
+    - paragraphs.paragraphs_type.accordion_item
+id: paragraph.accordion_item.field_initially_open
+field_name: field_initially_open
+entity_type: paragraph
+bundle: accordion_item
+label: 'Initially Open'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
