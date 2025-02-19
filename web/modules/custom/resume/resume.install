@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * Implements hook_schema()
+ * Defines the database schema for storing resume submissions and work experiences
+ */
+function resume_schema() {
+  $schema = [];
+
+  // Resume submission table
+  $schema['resume_submission'] = [
+    'description' => 'Stores resume submission data.',
+    'fields' => [
+      'id' => [
+        'description' => 'Unique resume submission ID.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'full_name' => [
+        'description' => 'The full name of the applicant.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'email' => [
+        'description' => 'The email address of the applicant.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'phone_number' => [
+        'description' => 'Phone number of the applicant.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+      ],
+      'submitted' => [
+        'description' => 'Timestamp when the resume was submitted.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  // Work experience table
+  $schema['resume_work_experience'] = [
+    'description' => 'Stores each work experience entry associated with a resume submission.',
+    'fields' => [
+      'id' => [
+        'description' => 'Unique ID for each work experience entry.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'submission_id' => [
+        'description' => 'The resume submission ID this work experience belongs to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'company_name' => [
+        'description' => 'Name of the company.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'job_title' => [
+        'description' => 'Job title of the applicant.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'start_date' => [
+        'description' => 'Start date as a Unix timestamp.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'end_date' => [
+        'description' => 'End date as a Unix timestamp. Null if still employed.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'job_description' => [
+        'description' => 'Job description.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'submission_id' => ['submission_id'],
+    ],
+  ];
+
+  return $schema;
+}

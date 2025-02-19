@@ -1,0 +1,5 @@
+resume.form:
+  title: 'Resumes'
+  description: 'Open resume tab.'
+  route_name: resume.submission_list
+  menu_name: main

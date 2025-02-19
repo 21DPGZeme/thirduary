@@ -1,0 +1,4 @@
+resume.table:
+  css:
+    theme:
+      css/resume-table.css: {}

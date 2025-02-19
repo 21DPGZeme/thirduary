@@ -1,0 +1,5 @@
+name: 'Resume'
+type: module
+description: 'Resume form with dynamic field groups'
+package: Custom
+core_version_requirement: ^10

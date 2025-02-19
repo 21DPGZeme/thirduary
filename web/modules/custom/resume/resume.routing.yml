@@ -1,0 +1,23 @@
+resume.form:
+  path: '/resume/form'
+  defaults:
+    _form: '\Drupal\resume\Form\ResumeForm'
+    _title: 'Resume creation form'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+resume.submission_list:
+  path: '/resume/submissions'
+  defaults:
+    _controller: '\Drupal\resume\Controller\ResumeController::listSubmissions'
+    _title: 'Resume Submissions'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+resume.edit_submission:
+  path: '/resume/edit/{submission_id}'
+  defaults:
+    _form: '\Drupal\resume\Form\ResumeForm'
+    _title: 'Edit resume submission'
+  requirements:
+    _user_is_logged_in: 'TRUE'

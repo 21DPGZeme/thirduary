@@ -1,0 +1,31 @@
+company_info.settings:
+  type: config_object
+  label: 'Company info settings'
+  mapping:
+    policy_library:
+      type: mapping
+      mapping:
+        name:
+          type: text
+          label: 'Company name'
+        address:
+          type: text
+          label: 'Company address'
+        phone_number:
+          type: string
+          label: 'Phone number'
+        email:
+          type: email
+          label: 'Email address'
+        description:
+          type: text
+          label: 'Company description'
+        facebook_link:
+          type: uri
+          label: 'Facebook URL'
+        linkedin_link:
+          type: uri
+          label: 'LinkedIn URL'
+        twitter_link:
+          type: uri
+          label: 'Twitter (not X) link'
