@@ -10,3 +10,7 @@
 ## Company Info Module
 1. Company info can be viewed in the company info page by clicking the menu link in the header
 2. Company info can be changed in the configuration page
+## Resume module
+1. You can access resumes by clicking the menu link in the header
+2. Resumes can be created and freely edited
+3. Each resume can have multiple work experience entries that can be freely added, edited and removed
