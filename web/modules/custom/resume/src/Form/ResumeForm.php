@@ -13,10 +13,26 @@ namespace Drupal\resume\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ResumeForm extends FormBase {
+  /**
+   * The resume service
+   *
+   * @var \Drupal\resume\Service\ResumeService
+   */
+  protected $storage;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    $instance = parent::create($container);
+    $instance->storage = $container->get('resume.service');
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
@@ -41,21 +57,9 @@ class ResumeForm extends FormBase {
   
     $resume_data = [];
     if ($submission_id && !$form_state->has('work_experience_data')) {
-      $connection = \Drupal::database();
-
-      $resume_data = $connection->select('resume_submission', 'r')
-        ->fields('r', ['full_name', 'email', 'phone_number'])
-        ->condition('r.id', $submission_id)
-        ->execute()
-        ->fetchAssoc();
+      $resume_data = $this->storage->loadSubmission($submission_id);
     
-      $work_experiences = $connection->select('resume_work_experience', 'w')
-        ->fields('w', ['id', 'company_name', 'job_title', 'start_date', 'end_date', 'job_description'])
-        ->condition('w.submission_id', $submission_id)
-        ->execute()
-        ->fetchAllAssoc('id');
-    
-      $work_experiences = array_values($work_experiences);
+      $work_experiences = $this->storage->loadWorkExperiences($submission_id);
     
       foreach ($work_experiences as &$experience) {
         $experience = (array) $experience;
@@ -325,46 +329,35 @@ class ResumeForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $submission_id = $form_state->getBuildInfo()['args'][0] ?? NULL;
-    $connection = \Drupal::database();
-  
+
     if ($submission_id) {
-      $connection->update('resume_submission')
-        ->fields([
-          'full_name' => $form_state->getValue('full_name'),
-          'email' => $form_state->getValue('email'),
-          'phone_number' => $form_state->getValue('phone_number'),
-        ])
-        ->condition('id', $submission_id)
-        ->execute();
-  
-      $connection->delete('resume_work_experience')
-        ->condition('submission_id', $submission_id)
-        ->execute();
+      $this->storage->updateSubmission($submission_id, [
+        'full_name' => $form_state->getValue('full_name'),
+        'email' => $form_state->getValue('email'),
+        'phone_number' => $form_state->getValue('phone_number'),
+      ]);
+      $this->storage->deleteWorkExperiences($submission_id);
     }
     else {
-      $submission_id = $connection->insert('resume_submission')
-        ->fields([
-          'full_name' => $form_state->getValue('full_name'),
-          'email' => $form_state->getValue('email'),
-          'phone_number' => $form_state->getValue('phone_number'),
-          'submitted' => REQUEST_TIME,
-        ])
-        ->execute();
+      $submission_id = $this->storage->insertSubmission([
+        'full_name' => $form_state->getValue('full_name'),
+        'email' => $form_state->getValue('email'),
+        'phone_number' => $form_state->getValue('phone_number'),
+        'submitted' => REQUEST_TIME,
+      ]);
     }
   
     foreach ($form_state->getValue('work_experience_wrapper') as $experience) {
-      $connection->insert('resume_work_experience')
-        ->fields([
-          'submission_id' => $submission_id,
-          'company_name' => $experience['company_name'],
-          'job_title' => $experience['job_title'],
-          'start_date' => strtotime($experience['start_date']),
-          'end_date' => !empty($experience['end_date']) ? strtotime($experience['end_date']) : NULL,
-          'job_description' => $experience['job_description'],
-        ])
-        ->execute();
+      $this->storage->insertWorkExperience([
+        'submission_id' => $submission_id,
+        'company_name' => $experience['company_name'],
+        'job_title' => $experience['job_title'],
+        'start_date' => strtotime($experience['start_date']),
+        'end_date' => !empty($experience['end_date']) ? strtotime($experience['end_date']) : NULL,
+        'job_description' => $experience['job_description'],
+      ]);
     }
   
     \Drupal::messenger()->addMessage($this->t('Resume has been successfully saved.'));
-  }  
+  }
 }

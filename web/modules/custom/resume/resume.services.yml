@@ -1,0 +1,4 @@
+services:
+  resume.service:
+    class: Drupal\resume\Service\ResumeService
+    arguments: ['@database']

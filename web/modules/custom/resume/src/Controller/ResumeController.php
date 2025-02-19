@@ -5,9 +5,25 @@ namespace Drupal\resume\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResumeController extends ControllerBase {
+  /**
+   * The resume storage service.
+   *
+   * @var \Drupal\resume\Service\ResumeService
+   */
+  protected $storage;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    $instance = parent::create($container);
+    $instance->storage = $container->get('resume.service');
+    return $instance;
+  }
 
   /**
    * Displays resume submissions
@@ -21,12 +37,10 @@ class ResumeController extends ControllerBase {
       $this->t('Actions'),
     ];
 
-    $query = Database::getConnection()->select('resume_submission', 'rs')
-      ->fields('rs', ['id', 'full_name', 'email', 'phone_number'])
-      ->execute();
+    $submissions = $this->storage->loadAllSubmissions();
 
     $rows = [];
-    foreach ($query as $record) {
+    foreach ($submissions as $record) {
       $rows[] = [
         'id' => $record->id,
         'full_name' => $record->full_name,
